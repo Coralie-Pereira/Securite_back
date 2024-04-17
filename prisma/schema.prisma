@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id_user      Int           @id @default(autoincrement())
+  id_user String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name         String
   email        String        @unique
   phone_number String        @unique
@@ -23,7 +23,7 @@ model User {
   role         UserRole      @relation(fields: [role_id], references: [id_userRole])
   role_id      Int
   created_at   DateTime      @default(now())
-  updated_at   DateTime      @updatedAt
+  updated_at   DateTime?      @updatedAt
   Reservation  Reservation[]
 }
 
@@ -32,14 +32,14 @@ model ParkingPlace {
   number      Int           @unique
   floor       Int
   created_at  DateTime      @default(now())
-  updated_at  DateTime      @updatedAt
+  updated_at  DateTime?      @updatedAt
   Reservation Reservation[]
 }
 
 model Reservation {
   id_reservation      Int               @id @default(autoincrement())
   user                User              @relation(fields: [user_id], references: [id_user])
-  user_id             Int
+  user_id             String @db.Uuid
   pplace              ParkingPlace      @relation(fields: [pplace_id], references: [id_pplace])
   pplace_id           Int
   valide_from         DateTime
@@ -48,7 +48,7 @@ model Reservation {
   status              ReservationStatus @relation(fields: [id_status], references: [id_reservationStatus])
   id_status           Int
   created_at          DateTime          @default(now())
-  updated_at          DateTime          @updatedAt
+  updated_at          DateTime?          @updatedAt
   UserRole            UserRole?         @relation(fields: [userRoleId_userRole], references: [id_userRole])
   userRoleId_userRole Int?
 }
