@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id_user String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_user Int @id @default(autoincrement())
   name         String
   email        String        @unique
   phone_number String        @unique
@@ -39,7 +39,7 @@ model ParkingPlace {
 model Reservation {
   id_reservation      Int               @id @default(autoincrement())
   user                User              @relation(fields: [user_id], references: [id_user])
-  user_id             String @db.Uuid
+  user_id             Int
   pplace              ParkingPlace      @relation(fields: [pplace_id], references: [id_pplace])
   pplace_id           Int
   valide_from         DateTime
