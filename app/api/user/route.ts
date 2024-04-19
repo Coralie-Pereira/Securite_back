@@ -55,7 +55,7 @@ const DELETE = async (req: Request) => {
             message: "API USERS : DELETE",
             status: StatusCodes.NO_CONTENT,
         });
-        
+
     } catch (error) {
         console.error("Error deleting the user:", error);
 
@@ -67,12 +67,46 @@ const DELETE = async (req: Request) => {
 }
 
 
-const PUT = () => {
-    return Response.json({message: "API USERS : PUT"}, {status: StatusCodes.OK});
+const PUT = async (req: Request) => {
+    try {
+        const { id, user } = await req.json();
+
+        await updateUser(id, user);
+
+        return Response.json({
+            message: "API USERS : PUT",
+            status: StatusCodes.NO_CONTENT,
+        });
+
+    } catch (error) {
+        
+        console.error("Error updating the user:", error);
+
+        return Response.json({
+            message: "Failed to update the user",
+            status: StatusCodes.INTERNAL_SERVER_ERROR,
+        });
+    }
 }
 
-const PATCH = () => {
-    return Response.json({message: "API USERS : PATCH"});
-}
 
+const PATCH = async (req: Request) => {
+    try {
+
+        const { id, partialUser } = await req.json();
+        await updateUser(id, partialUser);
+
+        return Response.json({
+            message: "API USERS : PATCH",
+            status: StatusCodes.OK,
+        });
+    } catch (error) {
+        console.error("Error patching the user:", error);
+
+        return Response.json({
+            message: "Failed to patch the user",
+            status: StatusCodes.INTERNAL_SERVER_ERROR,
+        });
+    }
+}
 export {GET, POST, DELETE, PUT, PATCH};
