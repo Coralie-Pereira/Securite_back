@@ -19,7 +19,7 @@ export async function getUser(id : number) {
             id_user: id
         }
     });
-    console.log('User:', user);
+    console.log('Get User by ID:', user);
     return user;
 };
 
