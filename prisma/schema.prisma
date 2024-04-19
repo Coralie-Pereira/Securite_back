@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id_user Int @id @default(autoincrement())
+  id_user      Int           @id @default(autoincrement())
   name         String
   email        String        @unique
   phone_number String        @unique
@@ -23,7 +23,7 @@ model User {
   role         UserRole      @relation(fields: [role_id], references: [id_userRole])
   role_id      Int
   created_at   DateTime      @default(now())
-  updated_at   DateTime?      @updatedAt
+  updated_at   DateTime?     @updatedAt
   Reservation  Reservation[]
 }
 
@@ -32,7 +32,7 @@ model ParkingPlace {
   number      Int           @unique
   floor       Int
   created_at  DateTime      @default(now())
-  updated_at  DateTime?      @updatedAt
+  updated_at  DateTime?     @updatedAt
   Reservation Reservation[]
 }
 
@@ -48,7 +48,7 @@ model Reservation {
   status              ReservationStatus @relation(fields: [id_status], references: [id_reservationStatus])
   id_status           Int
   created_at          DateTime          @default(now())
-  updated_at          DateTime?          @updatedAt
+  updated_at          DateTime?         @updatedAt
   UserRole            UserRole?         @relation(fields: [userRoleId_userRole], references: [id_userRole])
   userRoleId_userRole Int?
 }
@@ -62,4 +62,12 @@ model UserRole {
   id_userRole Int           @unique
   Reservation Reservation[]
   User        User[]
+}
+
+model Parking {
+  id_pplace  Int       @id @default(autoincrement())
+  number     Int       @unique
+  floor      Int
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
 }
