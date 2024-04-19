@@ -1,0 +1,6 @@
+projectKey=SonarQube-Performance-and-Security-Analysis
+serverUrl=http://localhost:9000
+serverVersion=10.5.0.89998
+dashboardUrl=http://localhost:9000/dashboard?id=SonarQube-Performance-and-Security-Analysis
+ceTaskId=6bbe0ddc-cac4-4947-a5de-ed6692ec7d2a
+ceTaskUrl=http://localhost:9000/api/ce/task?id=6bbe0ddc-cac4-4947-a5de-ed6692ec7d2a
